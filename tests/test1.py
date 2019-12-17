@@ -1,6 +1,5 @@
 from settings import CONNECTION_SETTINGS
 import socket
-import pprint
 
 if __name__ == '__main__':
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,5 +20,5 @@ if __name__ == '__main__':
             break
         data += dataRc
 
-    pprint.pprint(data)
+    print(data)
     sock.close()
