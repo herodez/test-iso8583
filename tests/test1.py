@@ -1,5 +1,6 @@
 from settings import CONNECTION_SETTINGS
 import iso8583
+import socket
 from iso8583.specs import default
 
 
