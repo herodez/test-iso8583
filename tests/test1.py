@@ -31,7 +31,7 @@ if __name__ == '__main__':
                                                              port=CONNECTION_SETTINGS['port']))
     sock.connect((CONNECTION_SETTINGS['host'], CONNECTION_SETTINGS['port']))
     print('Connection successful')
-    sock.sendall(message)
+    sock.sendall(b'001d60000000d9080080200000000000000400000000000000209462333031')
 
     data = b''
     while True:
