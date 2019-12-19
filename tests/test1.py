@@ -18,7 +18,7 @@ def generate_network_message():
     iso8583.add_field(doc_dec, '11', '000001')
     iso8583.add_field(doc_dec, '37', '001234567910')
     iso8583.add_field(doc_dec, '70', '270')
-    iso8583.add_field(doc_dec, 'h', "002E6000000001")
+    iso8583.add_field(doc_dec, 'h', "002E9600000000")
 
     return iso8583.encode(doc_dec, spec=default)
 
