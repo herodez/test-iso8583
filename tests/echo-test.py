@@ -22,7 +22,7 @@ if __name__ == '__main__':
     print('Connecting to Host:{host} and Port:{port}'.format(host=CONNECTION_SETTINGS['host'],
                                                              port=CONNECTION_SETTINGS['port']))
     sock.connect((CONNECTION_SETTINGS['host'], CONNECTION_SETTINGS['port']))
-    message = b'\x00\x2E' + b'\x60' + b'\x00\x00\x00\x00' + message
+    message = '0046'.encode('ascii') + '`'.encode('ascii') + '000000'.encode('ascii') + message
     sock.sendall(message)
 
     data = b''
