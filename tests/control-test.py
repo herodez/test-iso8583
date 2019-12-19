@@ -1,39 +1,12 @@
 from settings import CONNECTION_SETTINGS
-import iso8583
 import socket
-from iso8583.specs import default
-
-
-def generate_network_message():
-    # default['h'] = {
-    #     "data_enc": "b",
-    #     "len_enc": "b",
-    #     "len_type": 0,
-    #     "max_len": 7,
-    #     "desc": "Message Header"
-    # }
-    doc_dec = {}
-
-    iso8583.add_field(doc_dec, 't', '0800')
-    iso8583.add_field(doc_dec, '11', '000001')
-    iso8583.add_field(doc_dec, '37', '001234567910')
-    iso8583.add_field(doc_dec, '70', '270')
-    # iso8583.add_field(doc_dec, 'h', "002E9600000000")
-
-    return iso8583.encode(doc_dec, spec=default)
-
 
 if __name__ == '__main__':
-    message, _ = generate_network_message()
-    print(type(message))
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Connecting to Host:{host} and Port:{port}'.format(host=CONNECTION_SETTINGS['host'],
                                                              port=CONNECTION_SETTINGS['port']))
     sock.connect((CONNECTION_SETTINGS['host'], CONNECTION_SETTINGS['port']))
     print('Connection successful')
-    # sock.sendall(b'001d60000000d9080080200000000000000400000000000000209462333031')
-    # sock.sendall(message)
     byarray = bytearray([0x01, 0x23, 0x60, 0x00, 0x01, 0x80, 0x00, 0x02,
                          0x00, 0xb0, 0x38, 0x45, 0x00, 0x00, 0xc0, 0x10,
                          0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43,
@@ -77,10 +50,10 @@ if __name__ == '__main__':
     while True:
         print('Receiving data...')
         dataRc = sock.recv(CONNECTION_SETTINGS['BUFFER_SIZE'])
-        if not dataRc:
+        if dataRc:
+            data += dataRc
             print('Data Receiving end')
             break
-        data += dataRc
 
     print(data)
     sock.close()
